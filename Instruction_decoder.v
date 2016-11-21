@@ -22,52 +22,56 @@ module Instruction_decoder
 ( 
 WrPC,SelA,SelB,WrAcc,Op,WrRam,RdRam,Opcode
 );
-	output reg WrPC=0;
-	output [1:0] SelA;
-	output SelB;
-	output reg WrAcc=0;
-	output Op;
-	output WrRam;
-	output RdRam;
-	input wire[4:0]Opcode=0;
+	output reg WrPC;
+	output reg [1:0] SelA;
+	output reg SelB;
+	output reg WrAcc;
+	output reg Op;
+	output reg WrRam;
+	output reg RdRam;
+	input [4:0]Opcode;
 
 always@*
 case(Opcode)
-	5'b00000: WrPC=0; //HALT
+	5'b00000: 
+	begin
+				WrPC=0; //HALT	
+				SelA=0;
+				SelB=0;
+				WrAcc=0;
+				Op=0;
+				WrRam=0;
+				RdRam=0;
+	end			
 	5'b00001:			//STO
 	begin
 				WrPC=1;
-				//SelA=
-				//SelB=
+				SelA=0;
+				SelB=0;
 				WrAcc=0;
-				//Op=0;
+				Op=0;
 				WrRam=1;
-				RdRam=0;				
-				WrPC=0;
+				RdRam=0;	
 	end
 	5'b00010:			//LD
 	begin
 				WrPC=1;
 				SelA=2'b00;
-				//SelB=
+				SelB=0;
 				WrAcc=1;
-				//Op=1;
+				Op=0;
 				WrRam=0;
 				RdRam=1;
-				WrPC=0;
-				WrAcc=0;
 	end
 	5'b00011:			//LDI
 	begin
 				WrPC=1;
 				SelA=2'b01;
-				//SelB=
+				SelB=0;
 				WrAcc=1;
-				//Op=1;
+				Op=0;
 				WrRam=0;
 				RdRam=0;
-				WrPC=0;
-				WrAcc=0;
 	end
 	5'b00100:			//ADD
 	begin
@@ -78,8 +82,6 @@ case(Opcode)
 				Op=1;
 				WrRam=0;
 				RdRam=1;
-				WrPC=0;
-				WrAcc=0;
 	end
 	5'b00101:			//ADDI
 	begin
@@ -90,8 +92,6 @@ case(Opcode)
 				Op=1;
 				WrRam=0;
 				RdRam=0;
-				WrPC=0;
-				WrAcc=0;
 	end
 	5'b00110:			//SUB
 	begin
@@ -102,8 +102,6 @@ case(Opcode)
 				Op=0;
 				WrRam=0;
 				RdRam=1;
-				WrPC=0;
-				WrAcc=0;
 	end
 	5'b00111:			//SUBI
 	begin
@@ -114,8 +112,16 @@ case(Opcode)
 				Op=0;
 				WrRam=0;
 				RdRam=0;	
+	end
+	default:
+	begin
 				WrPC=0;
+				SelA=2'b00;
+				SelB=0;
 				WrAcc=0;
+				Op=0;
+				WrRam=0;
+				RdRam=0;
 	end
 	endcase
 endmodule
