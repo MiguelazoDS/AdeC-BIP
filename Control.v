@@ -20,23 +20,23 @@
 //////////////////////////////////////////////////////////////////////////////////
 module Control
 (
-	Instruction,SelA,SelB,Op,WrAcc,WrPC,WrRam,RdRam,Opcode,clock,PC,Operand,Result,reset
+	Instruction,SelA,SelB,Op,WrAcc,WrRam,RdRam,clock,PC,Operand,reset
 );
 
 input wire clock;
 input wire [15:0] Instruction;
-output wire WrPC;
+wire WrPC;
 output wire SelA;
 output wire SelB;
 output wire Op;
 output wire WrAcc;
 output wire WrRam;
 output wire RdRam;
-output reg [4:0] Opcode;
+reg [4:0] Opcode;
 output reg [10:0] Operand;
 output reg [10:0] PC;
 reg [10:0] PC_next;
-output wire [10:0] Result; 
+wire [10:0] Result; 
 input wire reset;
 reg OpPC;
 reg [10:0]Constante;
