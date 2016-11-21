@@ -22,13 +22,13 @@ module BAU #(parameter msb=11)(A,B,Op,Result);
 
 input [msb:0]A;
 input [msb:0]B;
-input wire Op;
+input Op;
 output reg signed [msb:0]Result; 
 
 always @(*)
 	case(Op)
 		1: Result=A+B;//ADD
 		0: Result=A-B;//SUB
-		default: Result=1'b01;
+		default: Result=0;
 	endcase
 endmodule
