@@ -20,50 +20,53 @@
 //////////////////////////////////////////////////////////////////////////////////
 module Instruction_decoder
 ( 
-WrPC,SelA,SelB,WrAcc,Op,WrRam,RdRam,Opcode
+output reg WrPC,
+output reg [1:0] SelA,
+output reg SelB,
+output reg WrAcc,
+output reg Op,
+output reg WrRam,
+output reg RdRam,
+input [4:0]Opcode
 );
-	output reg WrPC;
-	output reg [1:0] SelA;
-	output reg SelB;
-	output reg WrAcc;
-	output reg Op;
-	output reg WrRam;
-	output reg RdRam;
-	input [4:0]Opcode;
 
 always@*
 case(Opcode)
+	//HALT: WrPC=0,WrRam=0,RdRam=0
 	5'b00000: 
 	begin
-				WrPC=0; //HALT	
-				SelA=0;
+				WrPC=0;
+				SelA=2'b00;
 				SelB=0;
 				WrAcc=0;
 				Op=0;
 				WrRam=0;
 				RdRam=0;
-	end			
-	5'b00001:			//STO
+	end
+	//STO: WrPC=1,WrRam=1,RdRam=0,
+	5'b00001:			
 	begin
 				WrPC=1;
-				SelA=0;
+				SelA=2'b00;
 				SelB=0;
 				WrAcc=0;
 				Op=0;
 				WrRam=1;
 				RdRam=0;	
 	end
-	5'b00010:			//LD
+	//LD: WrPC=1,WrRam=1,RdRam=1,SelA=2'b00,WrAcc=1
+	5'b00010:			
 	begin
 				WrPC=1;
 				SelA=2'b00;
 				SelB=0;
 				WrAcc=1;
 				Op=0;
-				WrRam=0;
+				WrRam=1;
 				RdRam=1;
 	end
-	5'b00011:			//LDI
+	//LDI: WrPC=1, WrRam=0, RdRam=0,WrAcc=1,SelA=2'b01
+	5'b00011:			
 	begin
 				WrPC=1;
 				SelA=2'b01;
@@ -73,17 +76,19 @@ case(Opcode)
 				WrRam=0;
 				RdRam=0;
 	end
-	5'b00100:			//ADD
+	//ADD: WrPC=1,WrRam=1,RdRam=1,SelA=2'b10,SelB=0,WrAcc=1,Op=1
+	5'b00100:			
 	begin
 				WrPC=1;
 				SelA=2'b10;
 				SelB=0;
 				WrAcc=1;
 				Op=1;
-				WrRam=0;
+				WrRam=1;
 				RdRam=1;
 	end
-	5'b00101:			//ADDI
+	//ADDI: WrPC=1,WrRam=0,RdRam=0,SelA=2'b10,SelB=1,Op=1,WrAcc=1
+	5'b00101:			
 	begin
 				WrPC=1;
 				SelA=2'b10;
@@ -93,17 +98,19 @@ case(Opcode)
 				WrRam=0;
 				RdRam=0;
 	end
-	5'b00110:			//SUB
+	//SUB: WrPC=1,SelA=2'b10,SelB=0,WrAcc=1,Op=0,WrRam=1,RdRam=1
+	5'b00110:			
 	begin
 				WrPC=1;
 				SelA=2'b10;
 				SelB=0;
 				WrAcc=1;
 				Op=0;
-				WrRam=0;
+				WrRam=1;
 				RdRam=1;
 	end
-	5'b00111:			//SUBI
+	//SUBI: WrPC=1,WrRam=0,RdRam=0,SelA=2'b10,SelB=1,WrAcc=1,Op=0
+	5'b00111:			
 	begin
 				WrPC=1;
 				SelA=2'b10;

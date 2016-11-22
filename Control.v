@@ -20,26 +20,28 @@
 //////////////////////////////////////////////////////////////////////////////////
 module Control
 (
-	Instruction,SelA,SelB,Op,WrAcc,WrRam,RdRam,clock,PC,Operand,reset
+	input wire clock, 
+	input wire reset,
+	input wire [15:0] Instruction,
+
+	output wire SelA,
+	output wire SelB,
+	output wire WrAcc,
+	output wire Op,
+	output wire WrRam,
+	output wire RdRam,	
+	output reg [10:0] Operand,
+	output reg [10:0] PC
 );
 
-input wire clock;
-input wire [15:0] Instruction;
+
+wire [10:0] Result;
 wire WrPC;
-output wire SelA;
-output wire SelB;
-output wire Op;
-output wire WrAcc;
-output wire WrRam;
-output wire RdRam;
+
 reg [4:0] Opcode;
-output reg [10:0] Operand;
-output reg [10:0] PC;
 reg [10:0] PC_next;
-wire [10:0] Result; 
-input wire reset;
 reg OpPC;
-reg [10:0]Constante;
+reg [10:0] Cte;
 
 always@*
 begin
@@ -52,9 +54,9 @@ always@(posedge clock,posedge reset)
 begin 
 		if(reset)
 		begin
-			PC<=0;
-			OpPC=1;
-			Constante=1;
+			PC<=11'b00000000000;
+			OpPC<=1;
+			Cte<=11'b00000000001;
 		end
 		else
 		begin
@@ -79,7 +81,7 @@ Instruction_decoder ID1
 BAU BAU1
 (		
 		.A(PC), 
-		.B(Constante), 
+		.B(Cte), 
 		.Op(OpPC),
 		.Result(Result)
 );

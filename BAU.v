@@ -18,17 +18,18 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module BAU #(parameter msb=11)(A,B,Op,Result);
-
-input [msb:0]A;
-input [msb:0]B;
-input Op;
-output reg signed [msb:0]Result; 
+module BAU #(parameter msb=10)
+(
+input wire [msb:0] A,
+input wire [msb:0] B,
+input wire Op,
+output reg signed [msb:0]Result
+);
 
 always @(*)
 	case(Op)
-		1: Result=A+B;//ADD
-		0: Result=A-B;//SUB
+		1: Result=A+B;				//ADD
+		0: Result=A-B;				//SUB
 		default: Result=0;
 	endcase
 endmodule
