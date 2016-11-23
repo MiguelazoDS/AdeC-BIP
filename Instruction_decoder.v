@@ -54,7 +54,7 @@ case(Opcode)
 				WrRam=1;
 				RdRam=0;	
 	end
-	//LD: WrPC=1,WrRam=1,RdRam=1,SelA=2'b00,WrAcc=1
+	//LD: WrPC=1,WrRam=0,RdRam=1,SelA=2'b00,WrAcc=1
 	5'b00010:			
 	begin
 				WrPC=1;
@@ -62,7 +62,7 @@ case(Opcode)
 				SelB=0;
 				WrAcc=1;
 				Op=0;
-				WrRam=1;
+				WrRam=0;
 				RdRam=1;
 	end
 	//LDI: WrPC=1, WrRam=0, RdRam=0,WrAcc=1,SelA=2'b01
@@ -76,7 +76,7 @@ case(Opcode)
 				WrRam=0;
 				RdRam=0;
 	end
-	//ADD: WrPC=1,WrRam=1,RdRam=1,SelA=2'b10,SelB=0,WrAcc=1,Op=1
+	//ADD: WrPC=1,WrRam=0,RdRam=1,SelA=2'b10,SelB=0,WrAcc=1,Op=1
 	5'b00100:			
 	begin
 				WrPC=1;
@@ -84,7 +84,7 @@ case(Opcode)
 				SelB=0;
 				WrAcc=1;
 				Op=1;
-				WrRam=1;
+				WrRam=0;
 				RdRam=1;
 	end
 	//ADDI: WrPC=1,WrRam=0,RdRam=0,SelA=2'b10,SelB=1,Op=1,WrAcc=1
@@ -98,7 +98,7 @@ case(Opcode)
 				WrRam=0;
 				RdRam=0;
 	end
-	//SUB: WrPC=1,SelA=2'b10,SelB=0,WrAcc=1,Op=0,WrRam=1,RdRam=1
+	//SUB: WrPC=1,SelA=2'b10,SelB=0,WrAcc=1,Op=0,WrRam=0,RdRam=1
 	5'b00110:			
 	begin
 				WrPC=1;
@@ -106,7 +106,7 @@ case(Opcode)
 				SelB=0;
 				WrAcc=1;
 				Op=0;
-				WrRam=1;
+				WrRam=0;
 				RdRam=1;
 	end
 	//SUBI: WrPC=1,WrRam=0,RdRam=0,SelA=2'b10,SelB=1,WrAcc=1,Op=0
